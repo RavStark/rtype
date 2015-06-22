@@ -9,7 +9,7 @@ Remi Depond <depond.remi@gmail.com> 2015
 
 Core::Core()
 {
-	_player = new Player(0, 0, 127, 157);
+	_player = new Player;
 }
 
 Core::~Core()
@@ -20,6 +20,8 @@ bool Core::init()
 {
 	_mainWindow.create(sf::VideoMode(800, 600, 32), "R-TYPE");
 	_player->loadTexture("./ship.png");
+	_player->setHeight(157 / 2);
+	_player->setWidth(127 / 2);
 	if (!_mainWindow.isOpen())
 		return false;
 	
@@ -88,10 +90,14 @@ bool Core::loadMedia(void)
 
 void Core::loop(void)
 {
+	sf::Clock _clock;
+	float time = 0;
 	while (_mainWindow.isOpen())
 	{
 		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
 		sf::Event event;
+		sf::Time elapsed = _clock.restart();
+		time = elapsed.asSeconds();
 		while (_mainWindow.pollEvent(event))
 		{
 			// évènement "fermeture demandée" : on ferme la fenêtre
@@ -101,22 +107,22 @@ void Core::loop(void)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
 			// la touche "flèche gauche" est enfoncée : on bouge le personnage
-			_player->move(sf::Vector2f(-1, 0));
+			_player->move(sf::Vector2f(-450 * time, 0));
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
 			// la touche "flèche gauche" est enfoncée : on bouge le personnage
-			_player->move(sf::Vector2f(0, -1));
+			_player->move(sf::Vector2f(0, -450 * time));
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
 			// la touche "flèche gauche" est enfoncée : on bouge le personnage
-			_player->move(sf::Vector2f(1, 0));
+			_player->move(sf::Vector2f(450 * time, 0));
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
 			// la touche "flèche gauche" est enfoncée : on bouge le personnage
-			_player->move(sf::Vector2f(0, 1));
+			_player->move(sf::Vector2f(0, 450 * time));
 		}
 		_mainWindow.clear(sf::Color(sf::Color(0, 0, 0)));
 		_player->draw(_mainWindow);

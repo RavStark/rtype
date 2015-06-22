@@ -6,14 +6,15 @@ Remi Depond <depond.remi@gmail.com> 2015
 #include "Entities/Player.hpp"
 #include <iostream>
 
-Player::Player(unsigned width, unsigned height)
+Player::Player()
 :Entity()
 {
-
 }
-Player::Player(int x, int y, unsigned width, unsigned height)
+
+Player::Player(int x, int y)
 :Entity()
 {
+	setPos(x, y);
 }
 
 Player::~Player()
@@ -32,9 +33,4 @@ bool Player::loadTexture(const std::string &filename)
 	_texture.setSmooth(true);
 	_sprite.setTexture(_texture);
 	return true;
-}
-
-void Player::draw(sf::RenderWindow &mainWindow) const
-{
-	mainWindow.draw(_sprite);
 }
