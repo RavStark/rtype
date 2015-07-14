@@ -3,34 +3,26 @@ R-TYPE
 Remi Depond <depond.remi@gmail.com> 2015
 */
 
-#include "Entities/Player.hpp"
+#include "Entities/Bullet.hpp"
 #include <iostream>
 
-Player::Player()
-:Entity()
-{
-}
-
-Player::Player(int x, int y)
-:Entity()
+Bullet::Bullet(int x, int y)
 {
 	setPos(x, y);
 }
 
-Player::~Player()
+Bullet::~Bullet()
 {
-
 }
 
-bool Player::loadTexture(const std::string &filename)
+bool Bullet::loadTexture(const std::string &filename)
 {
-	_sprite.setRotation(90);
+
 	if (!_texture.loadFromFile(filename))
 	{
 		std::cerr << "[Player] Err: loading texture " << filename << std::endl;
 		return false;
 	}
-	
 	_texture.setSmooth(true);
 	_sprite.setTexture(_texture);
 	return true;
